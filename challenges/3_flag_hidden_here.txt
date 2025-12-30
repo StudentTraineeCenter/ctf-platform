@@ -1,0 +1,34 @@
+🎉 Gratulujeme! Našel jsi skrytý flag!
+
+═══════════════════════════════════════════════════════════
+                    🏁 FLAG DISCOVERED 🏁
+═══════════════════════════════════════════════════════════
+
+FLAG{robots_txt_neni_bezpecnost}
+
+═══════════════════════════════════════════════════════════
+
+📚 Co jsi se naučil:
+
+1. robots.txt je veřejně přístupný soubor v root adresáři
+2. Měl by říkat robotům (vyhledávačům), co nemají indexovat
+3. Ale KAŽDÝ ho může číst - není to bezpečnostní mechanismus!
+4. Disallowed cesty často odhalují citlivé adresáře
+
+⚠️  BEZPEČNOSTNÍ LEKCE:
+"Security through obscurity" (bezpečnost skrze utajení) NENÍ
+skutečná bezpečnost. Nikdy nespoléhej na to, že útočník
+něco nenajde!
+
+💡 TIP PRO PENTESTERS:
+robots.txt je jedním z prvních míst, kam se podívat při
+reconnaissance fázi. Často najdeš:
+- /admin - administrační rozhraní
+- /backup - zálohy databází
+- /config - konfigurační soubory
+- /dev - vývojové prostředí
+- /.git - Git repository (!)
+
+Keep hacking! 🚀
+
+═══════════════════════════════════════════════════════════

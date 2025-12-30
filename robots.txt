@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin
+Disallow: /secret
+Disallow: /backup
+Disallow: /config
+Disallow: /challenges/3_flag_hidden_here.php

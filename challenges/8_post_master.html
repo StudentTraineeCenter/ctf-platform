@@ -1,0 +1,192 @@
+<!-- Easter Egg: CHAPTER_1_MASTER -->
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge 8: POST Master (BOSS)</title>
+    <style>
+        body {
+            background: #0f0f1e;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .challenge-intro {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 3px solid #ffd700;
+        }
+        .challenge-intro h3 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+        }
+        .challenge-content {
+            background: #1a1a2e;
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid #00D1FF;
+            margin: 20px 0;
+        }
+        .endpoint-box {
+            background: #16213e;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #00D1FF;
+            margin: 15px 0;
+            font-family: monospace;
+        }
+        .params-list {
+            background: #16213e;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .params-list li {
+            margin: 8px 0;
+        }
+        code {
+            background: rgba(0, 209, 255, 0.2);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #00D1FF;
+        }
+        .form-section {
+            background: #16213e;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #2ed573;
+        }
+        .form-section h3 {
+            color: #2ed573;
+            margin-top: 0;
+        }
+        button {
+            background: #2ed573;
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #26de81;
+        }
+        .hint-text {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            color: #ffc107;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            background: #16213e;
+            color: #e0e0e0;
+            border: 2px solid #00D1FF;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 14px;
+            resize: vertical;
+        }
+        .methods-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .method-card {
+            background: #16213e;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #00D1FF;
+        }
+        .boss-badge {
+            display: inline-block;
+            background: #ffd700;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="challenge-intro">
+            <h3>🏆 BOSS KAPITOLY 1 🏆</h3>
+            <p><strong>Agent Byte:</strong> "Gratulace! Toto je finální test první kapitoly. Prokážeš znalost HTTP metod?"</p>
+        </div>
+        
+        <p>Hackeři používají různé HTTP metody - GET, POST, PUT, DELETE... Tato stránka odpovídá pouze na správnou metodu se správnými parametry.</p>
+        
+        <div class="challenge-content">
+            <h3>📋 Tvůj úkol:</h3>
+            <p>Pošli <strong>POST request</strong> na tento endpoint:</p>
+            
+            <div class="endpoint-box">
+                <code>challenge_1_8_post_endpoint.php</code>
+            </div>
+            
+            <h3>📦 Parametry:</h3>
+            <div class="params-list">
+                <ul>
+                    <li><code>action=unlock</code></li>
+                    <li><code>chapter=1</code></li>
+                </ul>
+            </div>
+            
+            <h3>🛠️ Můžeš použít:</h3>
+            <div class="methods-list">
+                <div class="method-card">
+                    <strong>✅ HTML Formulář</strong><br>
+                    <small>method="POST"</small>
+                </div>
+                <div class="method-card">
+                    <strong>💻 cURL</strong><br>
+                    <small>Command line</small>
+                </div>
+                <div class="method-card">
+                    <strong>🔧 Postman</strong><br>
+                    <small>API Testing</small>
+                </div>
+                <div class="method-card">
+                    <strong>📜 JavaScript</strong><br>
+                    <small>fetch()</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hint-text">
+            <strong>💡 HINT:</strong><br>
+            Vytvoř vlastní HTML soubor s formulářem method="POST", nebo použij cURL/Postman.<br>
+            <strong>cURL příklad:</strong> <code>curl -X POST -d "action=unlock&chapter=1" http://localhost/ctf-platform/challenges/8_post_endpoint.php</code>
+        </div>
+        
+        <details style="margin-top: 20px;">
+            <summary style="cursor: pointer; color: #00D1FF; font-weight: bold;">📚 Kód formuláře (pro ruční řešení)</summary>
+            <textarea readonly>&lt;form action="8_post_endpoint.php" method="POST"&gt;
+  &lt;input type="hidden" name="action" value="unlock"&gt;
+  &lt;input type="hidden" name="chapter" value="1"&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</textarea>
+        </details>
+    </div>
+</body>
+</html>

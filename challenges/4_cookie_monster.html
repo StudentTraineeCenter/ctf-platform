@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge 4: Cookie Monster</title>
+    <style>
+        body {
+            background: #0f0f1e;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .challenge-intro {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .challenge-content {
+            background: #1a1a2e;
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid #00D1FF;
+            text-align: center;
+        }
+        #adminStatus {
+            font-size: 28px;
+            font-weight: bold;
+            padding: 15px 30px;
+            background: rgba(0, 209, 255, 0.1);
+            border-radius: 8px;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        .error {
+            color: #ff4757;
+            font-size: 18px;
+            padding: 15px;
+            background: rgba(255, 71, 87, 0.1);
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .success {
+            color: #2ed573;
+            font-size: 18px;
+            padding: 15px;
+            background: rgba(46, 213, 115, 0.1);
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .flag-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2ed573;
+            background: rgba(46, 213, 115, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #2ed573;
+            font-family: monospace;
+        }
+        .btn-copy {
+            background: #2ed573;
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        .btn-copy:hover {
+            background: #26de81;
+        }
+        .copy-notification {
+            color: #2ed573;
+            font-size: 14px;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .copy-notification.show {
+            opacity: 1;
+        }
+        .hint-text {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            color: #ffc107;
+            text-align: left;
+        }
+        code {
+            background: rgba(0, 209, 255, 0.2);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #00D1FF;
+        }
+        h2 {
+            color: #00D1FF;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="challenge-intro">
+            <p><strong>Agent Byte:</strong> "Cookies ukládají data v prohlížeči uživatele. Ale pozor - uživatel je může měnit!"</p>
+        </div>
+        
+        <p>Tato stránka používá cookie pro kontrolu, zda jsi admin. Zkus to obejít!</p>
+        
+        <div class="challenge-content">
+            <div id="cookieChallenge">
+                <p style="font-size: 20px;">Přihlašovací formulář:</p>
+                <p><strong>Status:</strong></p>
+                <div id="adminStatus">GUEST</div>
+                <div id="cookieMessage">
+                    <p class="error">Nemáš admin přístup! ❌</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hint-text">
+            💡 Otevři Developer Tools (F12) → Application/Storage → Cookies<br>
+            Najdi cookie <code>ch1_4_admin</code> s hodnotou <code>false</code> a změň ji na <code>true</code>
+        </div>
+    </div>
+
+    <script>
+        // Funkce pro získání cookie
+        function getCookie(name) {
+            let matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : null;
+        }
+        
+        // Funkce pro nastavení cookie
+        function setCookie(name, value, days = 365) {
+            let expires = "";
+            if (days) {
+                let date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+        
+        // Kontrola a zobrazení statusu
+        function checkCookie() {
+            let admin = getCookie("ch1_4_admin");
+            
+            // Pokud cookie neexistuje, vytvoř ji
+            if (admin === null) {
+                setCookie("ch1_4_admin", "false");
+                admin = "false";
+            }
+            
+            let statusEl = document.getElementById("adminStatus");
+            let messageEl = document.getElementById("cookieMessage");
+            
+            console.log("Current cookie value:", admin);
+            
+            if (admin === "true") {
+                // ADMIN PŘÍSTUP - ZOBRAZ FLAG
+                statusEl.textContent = "ADMIN ✓";
+                statusEl.style.color = "#2ed573";
+                
+                messageEl.innerHTML = `
+                    <p class="success">Admin přístup povolen! ✓</p>
+                    <div class="flag-display">
+                        FLAG{cookies_jsou_na_klientovi}
+                    </div>
+                    <button class="btn-copy" onclick="copyFlag()">📋 ZKOPÍROVAT FLAG</button>
+                    <div class="copy-notification" id="copyNotification">✓ Flag zkopírován!</div>
+                    <p class="success">🎉 Gratulace! Úspěšně jsi manipuloval s cookies!</p>
+                `;
+            } else {
+                // GUEST - PŘÍSTUP ODEPŘEN
+                statusEl.textContent = "GUEST";
+                statusEl.style.color = "#ff4757";
+                
+                messageEl.innerHTML = `
+                    <p class="error">Nemáš admin přístup! ❌</p>
+                `;
+            }
+        }
+        
+        // Kontrola při načtení stránky
+        checkCookie();
+        
+        // Kontrola každých 500ms (pro automatickou aktualizaci při změně cookie)
+        setInterval(checkCookie, 500);
+        
+        // Funkce pro kopírování flagu
+        function copyFlag() {
+            const flag = "FLAG{cookies_jsou_na_klientovi}";
+            navigator.clipboard.writeText(flag).then(() => {
+                // Zobraz notifikaci
+                const notification = document.getElementById("copyNotification");
+                notification.classList.add("show");
+                
+                // Skryj po 2 sekundách
+                setTimeout(() => {
+                    notification.classList.remove("show");
+                }, 2000);
+            }).catch(err => {
+                console.error('Chyba při kopírování:', err);
+                alert('Flag: ' + flag);
+            });
+        }
+        
+        // Debug info
+        console.log("Cookie Monster Challenge loaded");
+        console.log("Current cookies:", document.cookie);
+        console.log("To solve: Change cookie 'ch1_4_admin' from 'false' to 'true'");
+    </script>
+</body>
+</html>
